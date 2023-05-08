@@ -1,5 +1,9 @@
+import { useAtom } from "jotai";
+
 import styled from "styled-components";
 import Light from "../Light";
+
+import { currentLights } from "../../store/lights";
 
 const StyledLights = styled.ul`
   list-style-type: none;
@@ -12,32 +16,15 @@ const StyledLights = styled.ul`
 `;
 
 export default function Lights() {
+  const [lights] = useAtom(currentLights);
+
   return (
     <StyledLights>
-      <li>
-        <Light name="Living Room" />
-      </li>
-      <li>
-        <Light name="Kitchen" />
-      </li>
-      <li>
-        <Light name="Bedroom" />
-      </li>
-      <li>
-        <Light name="Bathroom" />
-      </li>
-      <li>
-        <Light name="Garage" />
-      </li>
-      <li>
-        <Light name="Porch" />
-      </li>
-      <li>
-        <Light name="Garden" />
-      </li>
-      <li>
-        <Light name="Office" />
-      </li>
+      {lights.map((light) => (
+        <li key={light.id}>
+          <Light name={light.name} />
+        </li>
+      ))}
     </StyledLights>
   );
 }
